@@ -1,0 +1,22 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin glass($bg, $blur: 10px) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+}
+
+@mixin pill-button($bg, $hover-bg) {
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  background: $bg;
+  transition: background 0.15s, transform 0.1s;
+
+  &:hover:not(:disabled) { background: $hover-bg; }
+  &:active:not(:disabled) { transform: scale(0.95); }
+  &:disabled { opacity: 0.6; cursor: wait; }
+}

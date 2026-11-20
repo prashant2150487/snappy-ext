@@ -1,0 +1,201 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+:host { all: initial; }
+
+.ss-root {
+  position: absolute;
+  inset: 0;
+  font-family: $font-stack;
+  font-size: 14px;
+  color: $white;
+
+  &,
+  & *,
+  & *::before,
+  & *::after {
+    box-sizing: border-box;
+  }
+}
+
+.ss-overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ss-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.ss-dim {
+  position: absolute;
+  inset: 0;
+  background: $ss-dim;
+  pointer-events: none;
+}
+
+.ss-surface {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  touch-action: none;
+}
+
+// The huge box-shadow darkens everything OUTSIDE the selection, keeping the inside clear.
+.ss-selection {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  border: 2px solid $white;
+  outline: 1px solid rgba(59, 130, 246, 0.9);
+  box-shadow: 0 0 0 9999px $ss-dim;
+
+  &[data-dragging='false'] { border-color: $ss-selection; }
+}
+
+.ss-size {
+  position: absolute;
+  left: -2px;
+  bottom: calc(100% + 6px);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  background: rgba(24, 24, 27, 0.9);
+
+  &-in {
+    bottom: auto;
+    top: 6px;
+    left: 6px;
+  }
+}
+
+.ss-hint {
+  position: absolute;
+  z-index: 3;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  border-radius: 999px;
+  pointer-events: none;
+  @include glass($ss-panel-soft, 8px);
+
+  kbd {
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 12px;
+    background: rgba($white, 0.18);
+  }
+}
+
+.ss-close {
+  position: absolute;
+  z-index: 3;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  @include flex-center;
+  @include pill-button($ss-panel-soft, rgba(63, 63, 70, 0.95));
+}
+
+.ss-toolbar {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 14px;
+  cursor: default;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba($white, 0.08);
+  @include glass($ss-panel);
+}
+
+.ss-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 11px;
+  color: #a1a1aa;
+
+  img {
+    display: block;
+    max-width: 96px;
+    max-height: 54px;
+    border-radius: 6px;
+    // transparency checkerboard
+    background: repeating-conic-gradient(#3f3f46 0% 25%, #52525b 0% 50%) 50% / 10px 10px;
+  }
+}
+
+.ss-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 2px 4px;
+  background: rgba($white, 0.12);
+}
+
+.ss-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font: inherit;
+  @include pill-button(rgba($white, 0.08), rgba($white, 0.2));
+
+  &-text {
+    padding: 0 14px;
+    @include pill-button($indigo-600, $indigo-500);
+  }
+}
+
+.ss-spin { animation: ss-spin 0.8s linear infinite; }
+
+.ss-toast {
+  position: absolute;
+  z-index: 5;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(90vw, 460px);
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: default;
+  background: $ss-success;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: ss-pop 0.2s ease-out;
+
+  &[data-kind='error'] {
+    border-radius: 12px;
+    background: $ss-error;
+  }
+}
+
+@keyframes ss-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ss-pop {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
