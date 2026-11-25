@@ -16,7 +16,7 @@ npm run dev
 Build the extension package:
 
 ```sh
-Compress-Archive -Path .\dist\* -DestinationPath .\snapora-v1.0.0.zip -Force
+Compress-Archive -Path .\dist\* -DestinationPath .\snapora-v1.0.2.zip -Force
 ```
 
 In Chrome, open `chrome://extensions`, enable **Developer mode**, choose **Load unpacked**, and select the generated `dist` directory. The toolbar action opens the extension popup.
