@@ -50,10 +50,35 @@
 
 .ss-selection {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   border: 2px solid #38bdf8;
   background: rgb(56 189 248 / 12%);
   box-shadow: 0 0 0 9999px rgb(2 6 23 / 32%);
+  cursor: move;
+  touch-action: none;
+}
+
+.ss-resize {
+  position: absolute;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #fff;
+  border-radius: 2px;
+  background: #3b82f6;
+  touch-action: none;
+}
+
+.ss-resize-n { top: -6px; left: 50%; cursor: ns-resize; transform: translateX(-50%); }
+.ss-resize-ne { top: -6px; right: -6px; cursor: nesw-resize; }
+.ss-resize-e { top: 50%; right: -6px; cursor: ew-resize; transform: translateY(-50%); }
+.ss-resize-se { right: -6px; bottom: -6px; cursor: nwse-resize; }
+.ss-resize-s { bottom: -6px; left: 50%; cursor: ns-resize; transform: translateX(-50%); }
+.ss-resize-sw { bottom: -6px; left: -6px; cursor: nesw-resize; }
+.ss-resize-w { top: 50%; left: -6px; cursor: ew-resize; transform: translateY(-50%); }
+.ss-resize-nw { top: -6px; left: -6px; cursor: nwse-resize; }
+
+.ss-size {
   pointer-events: none;
 }
 

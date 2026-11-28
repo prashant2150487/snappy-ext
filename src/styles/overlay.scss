@@ -54,13 +54,35 @@
 // The huge box-shadow darkens everything OUTSIDE the selection, keeping the inside clear.
 .ss-selection {
   position: absolute;
-  z-index: 1;
-  pointer-events: none;
+  z-index: 3;
+  pointer-events: auto;
   border: 2px solid $white;
   outline: 1px solid rgba(59, 130, 246, 0.9);
   box-shadow: 0 0 0 9999px $ss-dim;
+  cursor: move;
+  touch-action: none;
 
   &[data-dragging='false'] { border-color: $ss-selection; }
+}
+
+.ss-resize {
+  position: absolute;
+  z-index: 1;
+  width: 10px;
+  height: 10px;
+  border: 1px solid $white;
+  border-radius: 2px;
+  background: #3b82f6;
+  touch-action: none;
+
+  &-n { top: -6px; left: 50%; cursor: ns-resize; transform: translateX(-50%); }
+  &-ne { top: -6px; right: -6px; cursor: nesw-resize; }
+  &-e { top: 50%; right: -6px; cursor: ew-resize; transform: translateY(-50%); }
+  &-se { right: -6px; bottom: -6px; cursor: nwse-resize; }
+  &-s { bottom: -6px; left: 50%; cursor: ns-resize; transform: translateX(-50%); }
+  &-sw { bottom: -6px; left: -6px; cursor: nesw-resize; }
+  &-w { top: 50%; left: -6px; cursor: ew-resize; transform: translateY(-50%); }
+  &-nw { top: -6px; left: -6px; cursor: nwse-resize; }
 }
 
 .ss-size {
@@ -72,6 +94,7 @@
   font-size: 12px;
   white-space: nowrap;
   background: rgba(24, 24, 27, 0.9);
+  pointer-events: none;
 
   &-in {
     bottom: auto;

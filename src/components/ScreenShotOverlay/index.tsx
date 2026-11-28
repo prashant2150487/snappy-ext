@@ -68,7 +68,7 @@ export default function ScreenshotOverlay({ dataUrl, onClose }: Props) {
     };
   }, [onClose]);
 
-  const { rect, dragging, reset, handlers } = useSelection(containerRef, {
+  const { rect, dragging, reset, handlers, selectionHandlers } = useSelection(containerRef, {
     onStart: () => {
       jobRef.current++;
       setCrop(null);
@@ -128,7 +128,7 @@ export default function ScreenshotOverlay({ dataUrl, onClose }: Props) {
 
       <div className="ss-surface" {...handlers} />
 
-      {rect && <SelectionRectangle rect={rect} dragging={dragging} />}
+      {rect && <SelectionRectangle rect={rect} dragging={dragging} handlers={selectionHandlers} />}
 
       {!rect && (
         <div className="ss-hint">
